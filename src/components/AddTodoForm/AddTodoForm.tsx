@@ -1,7 +1,8 @@
 import {useRef} from "react";
 import Input from "../ui/Input/Input.tsx";
 import React from "react";
-import Button from "../ui/Button/Button.tsx";
+import {Button} from "@mui/material"
+// import Button from "../ui/Button/Button.tsx";
 import {useDispatch} from "react-redux";
 import {addTodo} from "../../store/slices/todosSlice.ts";
 import {Todo} from "../../store/types/todo.ts";
@@ -27,11 +28,12 @@ const AddTodoForm = () => {
 			dispatch(addTodo(createTodo(value)));
 			todoTitleRef.current!.value = '';
 		}
+		console.log(value)
 	}
     return (
         <form onSubmit={submitNewTodo}>
             <Input ref={todoTitleRef} placeholder="Insert todo" />
-	        <Button text="Add" />
+	        <Button variant="contained" type="submit">Add todo</Button>
         </form>
     );
 };
