@@ -10,20 +10,23 @@ const AddTodoForm = () => {
 	const dispatch = useDispatch();
 	const todoTitleRef = useRef<HTMLInputElement>(null);
 	
-	const createTodo = (): Todo => {
+	const createTodo = (value: string): Todo => {
 		return {
-			id: Math.random(),
+			id: Date.now(),
 			isCompleted: false,
 			isImportant: false,
-			text: todoTitleRef.current?.value || '',
+			text: value,
 			createdAt: Date.now().toString()
 		}
 	}
 	
 	const submitNewTodo = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(addTodo(createTodo()));
-		console.log(todoTitleRef.current?.value);
+		const value: string = todoTitleRef.current?.value?.trim() ?? "";
+		if(value) {
+			dispatch(addTodo(createTodo(value)));
+			todoTitleRef.current!.value = '';
+		}
 	}
     return (
         <form onSubmit={submitNewTodo}>
