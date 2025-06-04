@@ -1,0 +1,62 @@
+.todoItem {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  min-height: 48px;
+  border: 1px solid $dark;
+  border-radius: 8px;
+  padding: 8px 12px;
+  word-break: break-all;
+  overflow: hidden;
+
+  &:hover {
+    background-color: $whiteHover;
+
+    .todoItemButton {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateX(0);
+    }
+  }
+
+  &Check {
+    margin-right: 8px;
+    display: block;
+    padding: 2px;
+
+    &Input {
+      display: none;
+
+      &:checked + .todoItemCheckLabel::before {
+        background-color: $green;
+      }
+    }
+
+    &Label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      background-color: $white;
+      border-radius: 4px;
+      transition: background-color 0.4s;
+      border: 1px solid $dark;
+    }
+  }
+
+  &Text {
+
+  }
+
+  &Button {
+    margin-left: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.3s ease;
+    transform: translateX(40px);
+  }
+}
+
+.completed {
+  text-decoration: line-through;
+}

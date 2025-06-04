@@ -1,4 +1,5 @@
 import {forwardRef} from "react";
+import styles from "./Input.module.scss";
 
 interface InputProps {
 	type?: string;
@@ -6,7 +7,7 @@ interface InputProps {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({placeholder, type = 'text'}, ref) => {
-	return <input ref={ref} placeholder={placeholder} type={type} />;
+	return <input className={styles.input} ref={ref} placeholder={placeholder} type={type} />;
 });
 
 export default Input;

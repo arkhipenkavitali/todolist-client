@@ -1,13 +1,14 @@
-import './App.css'
+import './App.module.scss'
 import AddTodoForm from "../AddTodoForm/AddTodoForm.tsx";
 import WeakBoard from "../WeakBoard/WeakBoard.tsx";
 import ModalContainer from "../ModalContainer/ModalContainer.tsx";
+import Title from "../ui/Title/Title.tsx";
 
 function App() {
     return (
         <>
 	        <div className="app">
-		        <h1>Hello, TodoList</h1>
+		        <Title text={'Hello, {name}'} />
 		        <AddTodoForm/>
 		        <WeakBoard/>
 	        </div>

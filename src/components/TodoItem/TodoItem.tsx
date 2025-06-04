@@ -4,11 +4,12 @@ import {useDispatch} from "react-redux";
 import {deleteTodo, toggleComplete} from "../../store/slices/todosSlice.ts";
 import {openModal} from "../../store/slices/modalSlice.ts";
 import ConfirmModal from "../ConfirmModal/ConfirmModal.tsx";
-import './TodoItem.css';
+import styles from "./TodoItem.module.scss";
 
 interface TodoItemProps {
 	todo: Todo
 }
+
 const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 	const dispatch = useDispatch();
 	const onDeleteTodo = () => {
@@ -20,10 +21,13 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 		dispatch(toggleComplete(todo.id))
 	}
 	return (
-		<li>
-			<input type="checkbox" onChange={onCompletedTodo}/>
-			<span className={todo.isCompleted ? "completed" : ""}>{todo.text}</span>
-			<button onClick={onDeleteTodo}>x</button>
+		<li className={styles.todoItem}>
+			<div className={styles.todoItemCheck}>
+				<input id={todo.id.toString()} className={styles.todoItemCheckInput} type="checkbox" onChange={onCompletedTodo}/>
+				<label className={styles.todoItemCheckLabel} htmlFor={todo.id.toString()}></label>
+			</div>
+			<span className={todo.isCompleted ? styles.completed : ""}>{todo.text}</span>
+			<button className={styles.todoItemButton} onClick={onDeleteTodo}>x</button>
 		</li>
 	);
 };
