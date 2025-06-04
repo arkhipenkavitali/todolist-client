@@ -3,7 +3,7 @@ import {RootState} from "../../store/store.ts";
 import styles from './ModalContainer.module.scss';
 
 const ModalContainer = () => {
-    const modalContent = useSelector((state: RootState) => state.modal.content);
+    const modalContent = useSelector((state: RootState) => state.modal.data);
     if (!modalContent) return null;
     return (
         <div className={styles.modalOverlay}>

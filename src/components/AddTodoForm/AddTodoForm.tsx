@@ -34,7 +34,7 @@ const AddTodoForm = () => {
         <form className={styles.addTodo} onSubmit={submitNewTodo}>
 	        <Subtitle text="Create new todo here" size="small" />
             <Input ref={todoTitleRef} placeholder="Insert todo" />
-	        <Button text="Add to dashboard" />
+	        <Button className={styles.addTodoBtn} text="Add to dashboard" />
         </form>
     );
 };

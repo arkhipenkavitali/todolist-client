@@ -1,10 +1,12 @@
 import {Todo} from "../../store/types/todo.ts";
 import React from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {deleteTodo, toggleComplete} from "../../store/slices/todosSlice.ts";
 import {openModal} from "../../store/slices/modalSlice.ts";
-import ConfirmModal from "../ConfirmModal/ConfirmModal.tsx";
 import styles from "./TodoItem.module.scss";
+import {RootState} from "../../store/store.ts";
+import Button from "../ui/Button/Button.tsx";
+import ConfirmPopover from "../ConfirmPopover/ConfirmPopover.tsx";
 
 interface TodoItemProps {
 	todo: Todo
@@ -12,11 +14,13 @@ interface TodoItemProps {
 
 const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 	const dispatch = useDispatch();
+	const deleteTodoId = useSelector((state: RootState) => state.modal.id)
+	const isConfirmModalOpen = deleteTodoId === todo.id;
+	
 	const onDeleteTodo = () => {
-		dispatch(openModal(
-			<ConfirmModal onConfirm={() => dispatch(deleteTodo(todo.id))} title="Хотите удалить todo" />
-		))
+		dispatch(deleteTodo(todo.id))
 	}
+	
 	const onCompletedTodo = () => {
 		dispatch(toggleComplete(todo.id))
 	}
@@ -27,7 +31,10 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 				<label className={styles.todoItemCheckLabel} htmlFor={todo.id.toString()}></label>
 			</div>
 			<span className={todo.isCompleted ? styles.completed : ""}>{todo.text}</span>
-			<button className={styles.todoItemButton} onClick={onDeleteTodo}>x</button>
+			<Button className={styles.todoItemButton} variant="Secondary" text="x" onClick={() => dispatch(openModal(todo.id))} />
+			{isConfirmModalOpen && (
+				<ConfirmPopover onConfirm={onDeleteTodo} title="Are you sure?" />
+			)}
 		</li>
 	);
 };

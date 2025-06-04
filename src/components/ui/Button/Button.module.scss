@@ -7,7 +7,6 @@
   font-size: 18px;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 12px;
   transition: background-color 0.2s ease-in-out;
 
   &Primary {
@@ -24,5 +23,10 @@
     &:active {
       background-color: $darkBlue;
     }
+  }
+
+  &Secondary {
+    @extend .button;
+    background-color: goldenrod;
   }
 }
