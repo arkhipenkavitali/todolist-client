@@ -1,3 +1,18 @@
 .confirmPopover {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: lightgray;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid $dark;
 
+  &Buttons {
+    margin-top: 4px;
+    display: flex;
+  }
+
+  &Button {
+
+  }
 }

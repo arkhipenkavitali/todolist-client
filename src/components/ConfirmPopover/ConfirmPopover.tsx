@@ -3,6 +3,7 @@ import {closeModal} from "../../store/slices/modalSlice.ts";
 import React, {useEffect} from "react";
 import {RootState} from "../../store/store.ts";
 import styles from "./ConfirmPopover.module.scss";
+import Button from "../ui/Button/Button.tsx";
 
 interface ConfirmModalProps {
 	title: string;
@@ -39,9 +40,9 @@ const ConfirmPopover: React.FC<ConfirmModalProps> = ({onConfirm, title}) => {
 	return (
 		<div className={styles.confirmPopover}>
 			<p>{title}</p>
-			<div>
-				<button onClick={handleConfirm}>Yes</button>
-				<button onClick={handleReject}>No</button>
+			<div className={styles.confirmPopoverButtons}>
+				<Button className={styles.confirmPopoverButtons} onClick={handleConfirm} text="Yes" />
+				<Button className={styles.confirmPopoverButtons} onClick={handleReject} text="No" />
 			</div>
 		</div>
 	);

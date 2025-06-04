@@ -30,8 +30,8 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 				<input id={todo.id.toString()} className={styles.todoItemCheckInput} type="checkbox" onChange={onCompletedTodo}/>
 				<label className={styles.todoItemCheckLabel} htmlFor={todo.id.toString()}></label>
 			</div>
-			<span className={todo.isCompleted ? styles.completed : ""}>{todo.text}</span>
-			<Button className={styles.todoItemButton} variant="Secondary" text="x" onClick={() => dispatch(openModal(todo.id))} />
+			<span className={[styles.todoItemText, todo.isCompleted ? styles.completed : ""].join(' ')}>{todo.text}</span>
+			<Button className={styles.todoItemButton} variant="Warning" text="x" onClick={() => dispatch(openModal(todo.id))} />
 			{isConfirmModalOpen && (
 				<ConfirmPopover onConfirm={onDeleteTodo} title="Are you sure?" />
 			)}

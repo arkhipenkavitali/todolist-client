@@ -1,12 +1,13 @@
 .todoItem {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   list-style-type: none;
   min-height: 48px;
   border: 1px solid $dark;
   border-radius: 8px;
   padding: 8px 12px;
   word-break: break-all;
+  position: relative;
   overflow: hidden;
 
   &:hover {
@@ -20,6 +21,7 @@
   }
 
   &Check {
+    transform: translateY(2px);
     margin-right: 8px;
     display: block;
     padding: 2px;
@@ -45,7 +47,7 @@
   }
 
   &Text {
-
+    align-self: center;
   }
 
   &Button {
@@ -54,6 +56,9 @@
     pointer-events: none;
     transition: opacity 0.4s ease, transform 0.3s ease;
     transform: translateX(40px);
+    position: absolute;
+    right: 12px;
+    top: 8px;
   }
 }
 
