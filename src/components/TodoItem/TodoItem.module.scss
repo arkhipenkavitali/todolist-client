@@ -67,3 +67,11 @@
 .completed {
   text-decoration: line-through;
 }
+
+.todoItemEditInput {
+  flex-grow: 1;
+  padding: 6px 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
