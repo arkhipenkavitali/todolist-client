@@ -27,6 +27,14 @@
 
   &Warning {
     @extend .button;
-    background-color: orange;
+    background-color: $warning;
+
+    &:hover {
+      background-color: $warningHover;
+    }
+
+    &:active {
+      background-color: $warningActive;
+    }
   }
 }
