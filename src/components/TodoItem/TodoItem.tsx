@@ -7,6 +7,7 @@ import styles from "./TodoItem.module.scss";
 import {RootState} from "../../store/store.ts";
 import Button from "../ui/Button/Button.tsx";
 import ConfirmPopover from "../ConfirmPopover/ConfirmPopover.tsx";
+import MoreIcon from '../../assets/icons/more.svg?react';
 
 interface TodoItemProps {
 	todo: Todo
@@ -16,8 +17,8 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 	const dispatch = useDispatch();
 	const deleteTodoId = useSelector((state: RootState) => state.modal.id);
 	const isConfirmModalOpen = deleteTodoId === todo.id;
-	
-	const [isEditing, setIsEditing] = useState(false);
+	const [isEditing, setIsEditing] = useState<boolean>(false);
+	const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 	const inputRef = useRef<HTMLInputElement>(null);
 	
 	const onDeleteTodo = () => {
@@ -38,14 +39,17 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 	
 	const onEditToggle = () => {
 		setIsEditing(true);
+		setMenuOpen(false);
 	};
 	
 	return (
-		<li className={styles.todoItem}>
-			<div className={styles.todoItemCheck}>
-				<input id={todo.id.toString()} className={styles.todoItemCheckInput} type="checkbox" onChange={onCompletedTodo} checked={todo.isCompleted} />
-				<label className={styles.todoItemCheckLabel} htmlFor={todo.id.toString()}></label>
-			</div>
+		<li className={[styles.todoItem, isMenuOpen ? styles.todoItemDisabled : ""].join(" ")}>
+			{!isEditing && (
+				<div className={styles.todoItemCheck}>
+					<input id={todo.id.toString()} className={styles.todoItemCheckInput} type="checkbox" onChange={onCompletedTodo} checked={todo.isCompleted} />
+					<label className={styles.todoItemCheckLabel} htmlFor={todo.id.toString()}></label>
+				</div>
+			)}
 			
 			{isEditing ? (
 				<>
@@ -61,14 +65,14 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 						autoFocus
 					/>
 					<Button
-						className={styles.todoItemButton}
-						variant="Success"
+						className={styles.todoItemButtonEdit}
+						variant="Primary"
 						text="OK"
 						onClick={onSaveEdit}
 					/>
 					<Button
-						className={styles.todoItemButton}
-						variant="Secondary"
+						className={styles.todoItemButtonEdit}
+						variant="Warning"
 						text="Cancel"
 						onClick={() => {
 							setIsEditing(false);
@@ -76,13 +80,24 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 					/>
 				</>
 			) : (
-				<span className={[styles.todoItemText, todo.isCompleted ? styles.completed : ""].join(' ')}>
+				<span className={[styles.todoItemText, todo.isCompleted ? styles.todoItemCompleted : ""].join(' ')}>
 					{todo.text}
 				</span>
 			)}
 			
-			<Button className={styles.todoItemButton} variant="Secondary" text="✎" onClick={onEditToggle} />
-			<Button className={styles.todoItemButton} variant="Warning" text="x" onClick={() => dispatch(openModal(todo.id))} />
+			{isMenuOpen && !isEditing && (
+				<div className={[styles.todoItemSettings, isMenuOpen ? styles.todoItemSettingsOpen : ""].join(' ')}>
+					<Button className={styles.todoItemButton} variant="Primary" text="✎" onClick={onEditToggle} />
+					<Button className={styles.todoItemButton} variant="Warning" text="x" onClick={() => {
+						dispatch(openModal(todo.id));
+						setMenuOpen(false)
+					}} />
+				</div>
+			)}
+			
+			{!isEditing && (
+				<MoreIcon className={styles.todoItemMoreIcon} onClick={() => setMenuOpen(prev => !prev)} width={24} />
+			)}
 			
 			{isConfirmModalOpen && (
 				<ConfirmPopover onConfirm={onDeleteTodo} title="Are you sure?" />

@@ -10,14 +10,8 @@
   position: relative;
   overflow: hidden;
 
-  &:hover {
-    background-color: $whiteHover;
+  &Disabled {
 
-    .todoItemButton {
-      opacity: 1;
-      pointer-events: all;
-      transform: translateX(0);
-    }
   }
 
   &Check {
@@ -49,29 +43,58 @@
   &Text {
     align-self: center;
     margin-right: 4px;
+    flex-grow: 1;
   }
 
   &Button {
-    margin-left: auto;
-    //opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease, transform 0.3s ease;
-    //transform: translateX(40px);
-    //position: absolute;
-    //right: 12px;
-    //top: 8px;
-    //float: right;
+    margin-left: 8px;
+
+    &Edit {
+      margin-left: 6px;
+      flex-shrink: 0;
+      padding: 4px;
+    }
   }
-}
 
-.completed {
-  text-decoration: line-through;
-}
+  &EditInput {
+    flex-grow: 1;
+    padding: 6px 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
 
-.todoItemEditInput {
-  flex-grow: 1;
-  padding: 6px 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  &Settings {
+    display: flex;
+    position: absolute;
+    top: 6px;
+    right: 36px;
+  }
+
+  &Completed {
+    text-decoration: line-through;
+  }
+
+  &MoreIcon {
+    align-self: flex-start;
+    cursor: pointer;
+    color: $dark;
+    flex-shrink: 0;
+    transition: color .3s ease;
+    margin-left: auto;
+    transform: translateY(2px);
+
+    circle {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      circle:first-child {
+        transform: translateX(4px);
+      }
+      circle:last-child {
+        transform: translateX(-4px);
+      }
+    }
+  }
 }

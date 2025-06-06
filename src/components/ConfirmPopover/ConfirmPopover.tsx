@@ -39,10 +39,10 @@ const ConfirmPopover: React.FC<ConfirmModalProps> = ({onConfirm, title}) => {
 	}
 	return (
 		<div className={styles.confirmPopover}>
-			<p>{title}</p>
+			<p className={styles.confirmPopoverTitle}>{title}</p>
 			<div className={styles.confirmPopoverButtons}>
-				<Button className={styles.confirmPopoverButtons} onClick={handleConfirm} text="Yes" />
-				<Button className={styles.confirmPopoverButtons} onClick={handleReject} text="No" />
+				<Button className={styles.confirmPopoverButtons} variant="Warning" onClick={handleConfirm} text="Yes" />
+				<Button className={styles.confirmPopoverButtons} variant="Primary" onClick={handleReject} text="No" />
 			</div>
 		</div>
 	);

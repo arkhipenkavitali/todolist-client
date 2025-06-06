@@ -26,10 +26,9 @@ const todosSlice = createSlice({
             }
         },
 	    updateTodoText: (state, action: PayloadAction<{ id: number; text: string }>) => {
-		    const { id, text } = action.payload;
-		    const todo = state.todos.find((t) => t.id === id);
+		    const todo = state.todos.find((t) => t.id === action.payload.id);
 		    if (todo) {
-			    todo.text = text;
+			    todo.text = action.payload.text;
 		    }
 	    }
     }
