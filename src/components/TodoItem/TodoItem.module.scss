@@ -9,9 +9,24 @@
   word-break: break-all;
   position: relative;
   overflow: hidden;
+  transition: background-color .5s ease-in-out;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+
+  &Completed {
+    .todoItemText {
+      text-decoration: line-through;
+    }
+    background-color: $green;
+  }
 
   &Disabled {
+    .todoItemText {
+      filter: blur(2px);
+    }
 
+    .todoItemCheck {
+      filter: blur(2px);
+    }
   }
 
   &Check {
@@ -19,12 +34,13 @@
     margin-right: 6px;
     display: block;
     padding: 2px;
+    position: relative;
 
     &Input {
       display: none;
 
       &:checked + .todoItemCheckLabel::before {
-        background-color: $green;
+        background-color: $darkGreen;
       }
     }
 
@@ -37,6 +53,12 @@
       border-radius: 4px;
       transition: background-color 0.4s;
       border: 1px solid $dark;
+    }
+
+    &Icon {
+      position: absolute;
+      top: 2px;
+      left: 3px;
     }
   }
 
@@ -69,10 +91,6 @@
     position: absolute;
     top: 6px;
     right: 36px;
-  }
-
-  &Completed {
-    text-decoration: line-through;
   }
 
   &MoreIcon {

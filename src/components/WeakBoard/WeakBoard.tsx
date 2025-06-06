@@ -10,7 +10,9 @@ const WeakBoard = () => {
     return (
         <div className={styles.weakBoard}>
             <Subtitle text="Week board" />
-	        <Subtitle text={`Done: ${completedTodos.length}/${todos.length}`} size="small" />
+	        {todos.length ?
+		        <Subtitle text={`Done: ${completedTodos.length}/${todos.length}`} size="small" />
+		        : <Subtitle text="No todos yet" size="medium" />}
 	        <div className={styles.weakBoardGrid}>
 		        <DayColumn todos={todos}/>
 	        </div>

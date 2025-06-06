@@ -8,6 +8,7 @@ import {RootState} from "../../store/store.ts";
 import Button from "../ui/Button/Button.tsx";
 import ConfirmPopover from "../ConfirmPopover/ConfirmPopover.tsx";
 import MoreIcon from '../../assets/icons/more.svg?react';
+import CheckIcon from '../../assets/icons/check.svg?react';
 
 interface TodoItemProps {
 	todo: Todo
@@ -43,11 +44,13 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 	};
 	
 	return (
-		<li className={[styles.todoItem, isMenuOpen ? styles.todoItemDisabled : ""].join(" ")}>
+		<li className={[styles.todoItem, isMenuOpen || isConfirmModalOpen ? styles.todoItemDisabled : "", todo.isCompleted ? styles.todoItemCompleted : ""].join(" ")}>
 			{!isEditing && (
 				<div className={styles.todoItemCheck}>
-					<input id={todo.id.toString()} className={styles.todoItemCheckInput} type="checkbox" onChange={onCompletedTodo} checked={todo.isCompleted} />
-					<label className={styles.todoItemCheckLabel} htmlFor={todo.id.toString()}></label>
+					<input disabled={isMenuOpen} id={todo.id.toString()} className={styles.todoItemCheckInput} type="checkbox" onChange={onCompletedTodo} checked={todo.isCompleted} />
+					<label className={styles.todoItemCheckLabel} htmlFor={todo.id.toString()}>
+						{todo.isCompleted && <CheckIcon className={styles.todoItemCheckIcon} width={21} fill="white" />}
+					</label>
 				</div>
 			)}
 			
@@ -80,7 +83,7 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 					/>
 				</>
 			) : (
-				<span className={[styles.todoItemText, todo.isCompleted ? styles.todoItemCompleted : ""].join(' ')}>
+				<span className={styles.todoItemText}>
 					{todo.text}
 				</span>
 			)}
@@ -88,7 +91,7 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 			{isMenuOpen && !isEditing && (
 				<div className={[styles.todoItemSettings, isMenuOpen ? styles.todoItemSettingsOpen : ""].join(' ')}>
 					<Button className={styles.todoItemButton} variant="Primary" text="✎" onClick={onEditToggle} />
-					<Button className={styles.todoItemButton} variant="Warning" text="x" onClick={() => {
+					<Button className={styles.todoItemButton} variant="Warning" text="🗑️" onClick={() => {
 						dispatch(openModal(todo.id));
 						setMenuOpen(false)
 					}} />
