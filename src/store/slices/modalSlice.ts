@@ -1,23 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {ReactNode} from "react";
 
 interface ModalState {
-	content: ReactNode | null;
+	id: number | null;
+	data?: string;
 }
 
 const initialState: ModalState = {
-	content: null,
+	id: null,
+	data: "",
 }
 
 const modalSlice = createSlice({
 	name: 'modal',
 	initialState,
 	reducers: {
-		openModal: (state, action: PayloadAction<ReactNode>) => {
-			state.content = action.payload;
+		openModal: (state, action: PayloadAction<number>) => {
+			state.id = action.payload;
 		},
 		closeModal: (state) => {
-			state.content = null;
+			state.id = null;
 		}
 	}
 })

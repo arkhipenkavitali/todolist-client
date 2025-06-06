@@ -1,0 +1,16 @@
+.subtitle {
+  &Large {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  &Medium {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  &Small {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+}
