@@ -1,6 +1,7 @@
 .weakBoard {
 
   &Grid {
-
+    display: grid;
+    grid-auto-flow: row;
   }
 }

@@ -1,4 +1,10 @@
 .app {
   display: flex;
   flex-direction: column;
+
+  &Top {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+  }
 }
