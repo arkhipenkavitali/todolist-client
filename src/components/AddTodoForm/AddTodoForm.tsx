@@ -33,7 +33,7 @@ const AddTodoForm = () => {
     return (
         <form className={styles.addTodo} onSubmit={submitNewTodo}>
 	        <Subtitle text="Create new todo here" size="small" />
-            <Input ref={todoTitleRef} placeholder="Insert todo" />
+            <Input id="insert" inputRef={todoTitleRef} placeholder="Insert todo" />
 	        <Button className={styles.addTodoBtn} text="Add to dashboard" />
         </form>
     );
