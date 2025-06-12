@@ -5,6 +5,8 @@ import Button from "../ui/Button/Button.tsx";
 import {useDispatch} from "react-redux";
 import {addTodo} from "../../store/slices/todosSlice.ts";
 import {Todo} from "../../store/types/todo.ts";
+import styles from "./AddTodoForm.module.scss";
+import Subtitle from "../ui/Subtitle/Subtitle.tsx";
 
 const AddTodoForm = () => {
 	const dispatch = useDispatch();
@@ -29,9 +31,10 @@ const AddTodoForm = () => {
 		}
 	}
     return (
-        <form onSubmit={submitNewTodo}>
-            <Input ref={todoTitleRef} placeholder="Insert todo" />
-	        <Button text="Add" />
+        <form className={styles.addTodo} onSubmit={submitNewTodo}>
+	        <Subtitle text="Create new todo here" size="small" />
+            <Input id="insert" inputRef={todoTitleRef} placeholder="Insert todo" />
+	        <Button className={styles.addTodoBtn} text="Add to dashboard" />
         </form>
     );
 };

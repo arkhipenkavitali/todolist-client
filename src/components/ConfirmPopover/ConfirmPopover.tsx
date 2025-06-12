@@ -2,15 +2,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {closeModal} from "../../store/slices/modalSlice.ts";
 import React, {useEffect} from "react";
 import {RootState} from "../../store/store.ts";
+import styles from "./ConfirmPopover.module.scss";
+import Button from "../ui/Button/Button.tsx";
 
 interface ConfirmModalProps {
 	title: string;
 	onConfirm: () => void;
 }
 
-const ConfirmModal: React.FC<ConfirmModalProps> = ({onConfirm, title}) => {
+const ConfirmPopover: React.FC<ConfirmModalProps> = ({onConfirm, title}) => {
 	const dispatch = useDispatch();
-	const modalContent = useSelector((state: RootState) => state.modal.content);
+	const confirmModalId = useSelector((state: RootState) => state.modal.id);
 	
 	useEffect(() => {
 		const handleModalCloseByEsc = (e: KeyboardEvent) => {
@@ -18,14 +20,14 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({onConfirm, title}) => {
 				dispatch(closeModal());
 			}
 		}
-		if(modalContent){
+		if(confirmModalId){
 			document.addEventListener("keydown", handleModalCloseByEsc);
 		}
 		
 		return () => {
 			document.removeEventListener("keydown", handleModalCloseByEsc);
 		}
-	}, [modalContent, dispatch])
+	}, [confirmModalId, dispatch])
 	
 	const handleConfirm = () => {
 		onConfirm();
@@ -36,14 +38,14 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({onConfirm, title}) => {
 		dispatch(closeModal());
 	}
 	return (
-		<div>
-			<h2>{title}</h2>
-			<div>
-				<button onClick={handleConfirm}>Yes</button>
-				<button onClick={handleReject}>No</button>
+		<div className={styles.confirmPopover}>
+			<p className={styles.confirmPopoverTitle}>{title}</p>
+			<div className={styles.confirmPopoverButtons}>
+				<Button className={styles.confirmPopoverButtons} variant="Warning" onClick={handleConfirm} text="Yes" />
+				<Button className={styles.confirmPopoverButtons} variant="Primary" onClick={handleReject} text="No" />
 			</div>
 		</div>
 	);
 };
 
-export default ConfirmModal;
+export default ConfirmPopover;

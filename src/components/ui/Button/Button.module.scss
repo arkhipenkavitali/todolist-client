@@ -1,0 +1,40 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 16px;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &Primary {
+    @extend .button;
+    color: $white;
+    border: 1px solid $darkBlue;
+    background-color: $mainBlue;
+    box-shadow: 0 0 1px $darkBlue;
+
+    &:hover {
+      background-color: $secondaryBlue;
+    }
+
+    &:active {
+      background-color: $darkBlue;
+    }
+  }
+
+  &Warning {
+    @extend .button;
+    background-color: $warning;
+
+    &:hover {
+      background-color: $warningHover;
+    }
+
+    &:active {
+      background-color: $warningActive;
+    }
+  }
+}

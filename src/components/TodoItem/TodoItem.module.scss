@@ -1,0 +1,118 @@
+.todoItem {
+  display: flex;
+  align-items: flex-start;
+  list-style-type: none;
+  min-height: 48px;
+  border: 1px solid $dark;
+  border-radius: 8px;
+  padding: 8px;
+  word-break: break-all;
+  position: relative;
+  overflow: hidden;
+  transition: background-color .5s ease-in-out;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+
+  &Completed {
+    .todoItemText {
+      text-decoration: line-through;
+    }
+    background-color: $green;
+  }
+
+  &Disabled {
+    .todoItemText {
+      filter: blur(2px);
+    }
+
+    .todoItemCheck {
+      filter: blur(2px);
+    }
+  }
+
+  &Check {
+    transform: translateY(2px);
+    margin-right: 6px;
+    display: block;
+    padding: 2px;
+    position: relative;
+
+    &Input {
+      display: none;
+
+      &:checked + .todoItemCheckLabel::before {
+        background-color: $darkGreen;
+      }
+    }
+
+    &Label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      background-color: $white;
+      border-radius: 4px;
+      transition: background-color 0.4s;
+      border: 1px solid $dark;
+    }
+
+    &Icon {
+      position: absolute;
+      top: 2px;
+      left: 3px;
+    }
+  }
+
+  &Text {
+    align-self: center;
+    margin-right: 4px;
+    flex-grow: 1;
+  }
+
+  &Button {
+    margin-left: 8px;
+
+    &Edit {
+      margin-left: 6px;
+      flex-shrink: 0;
+      padding: 4px;
+    }
+  }
+
+  &EditInput {
+    flex-grow: 1;
+    padding: 6px 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  &Settings {
+    display: flex;
+    position: absolute;
+    top: 6px;
+    right: 36px;
+  }
+
+  &MoreIcon {
+    align-self: flex-start;
+    cursor: pointer;
+    color: $dark;
+    flex-shrink: 0;
+    transition: color .3s ease;
+    margin-left: auto;
+    transform: translateY(2px);
+
+    circle {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      circle:first-child {
+        transform: translateX(4px);
+      }
+      circle:last-child {
+        transform: translateX(-4px);
+      }
+    }
+  }
+}
