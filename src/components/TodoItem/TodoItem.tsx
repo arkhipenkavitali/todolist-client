@@ -9,6 +9,7 @@ import Button from "../ui/Button/Button.tsx";
 import ConfirmPopover from "../ConfirmPopover/ConfirmPopover.tsx";
 import MoreIcon from '../../assets/icons/more.svg?react';
 import CheckIcon from '../../assets/icons/check.svg?react';
+import clsx from "clsx";
 
 interface TodoItemProps {
 	todo: Todo
@@ -44,7 +45,11 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 	};
 	
 	return (
-		<li className={[styles.todoItem, isMenuOpen || isConfirmModalOpen ? styles.todoItemDisabled : "", todo.isCompleted ? styles.todoItemCompleted : ""].join(" ")}>
+		<li className={clsx(
+			styles.todoItem,
+			isMenuOpen || isConfirmModalOpen ? styles.todoItemDisabled : "",
+			todo.isCompleted ? styles.todoItemCompleted : ""
+		)}>
 			{!isEditing && (
 				<div className={styles.todoItemCheck}>
 					<input disabled={isMenuOpen} id={todo.id.toString()} className={styles.todoItemCheckInput} type="checkbox" onChange={onCompletedTodo} checked={todo.isCompleted} />
@@ -89,7 +94,10 @@ const TodoItem: React.FC<TodoItemProps> = ({todo}) => {
 			)}
 			
 			{isMenuOpen && !isEditing && (
-				<div className={[styles.todoItemSettings, isMenuOpen ? styles.todoItemSettingsOpen : ""].join(' ')}>
+				<div className={clsx(
+					styles.todoItemSettings,
+					isMenuOpen ? styles.todoItemSettingsOpen : ""
+				)}>
 					<Button className={styles.todoItemButton} variant="Primary" text="✎" onClick={onEditToggle} />
 					<Button className={styles.todoItemButton} variant="Warning" text="🗑️" onClick={() => {
 						dispatch(openModal(todo.id));
